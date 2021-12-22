@@ -26,14 +26,32 @@ var getUserRepos = function(user) {
   
     // make a request to the url
     fetch(apiUrl).then(function(response) {
-      response.json().then(function(data) {
-        displayRepos(data, user);
-      });
+        // request was successful
+      if (response.ok) {
+        response.json().then(function(data) {
+          displayRepos(data, user);
+        });
+      } 
+        // unsuccessful
+      else {
+        alert('Error: GitHub User Not Found');
+      }
+    })
+        // Network Error handling
+    .catch(function(error) {
+      // Notice this `.catch()` getting chained onto the end of the `.then()` method
+      alert("Unable to connect to GitHub");
     });
 };
   
 
 var displayRepos = function(repos, searchTerm) {
+        // check if api returned any repos (error handling)
+    if (repos.length === 0) {
+        repoContainerEl.textContent = "No repositories found.";
+        return;
+    }
+
     repoContainerEl.textContent = "";
     repoSearchTerm.textContent = searchTerm;
 
