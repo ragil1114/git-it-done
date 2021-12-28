@@ -124,5 +124,6 @@ var displayRepos = function(repos, searchTerm) {
 };
 
 
+// add event listeners to form and button container
 userFormEl.addEventListener("submit", formSubmitHandler);
 languageButtonsEl.addEventListener("click", buttonClickHandler);
